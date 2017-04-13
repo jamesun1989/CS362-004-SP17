@@ -647,6 +647,7 @@ int getCost(int cardNumber)
 void cardEffect_adventurer(int currentPlayer, struct gameState *state, int drawntreasure, int cardDrawn, int *temphand)
 {
 	int z = 0;
+	//Bug 1
 	//Original code: while(drawntreasure<2)
 	while(drawntreasure >= 2){
 	if (state->deckCount[currentPlayer] <1){//if the deck is empty we need to shuffle discard and add to deck
@@ -663,8 +664,10 @@ void cardEffect_adventurer(int currentPlayer, struct gameState *state, int drawn
 	}
       }
       while(z-1>=0){
+      	//Bug 2
       	//Original code: state->discard[currentPlayer][state->discardCount[currentPlayer]++]=temphand[z-1];
 	state->discard[1 + currentPlayer][state->discardCount[currentPlayer]++]=temphand[z-1]; // discard all cards in play that have been drawn
+	//Bug 3
 	//Original code: z = z-1;
 	z=z-2;
       }
@@ -673,14 +676,17 @@ void cardEffect_adventurer(int currentPlayer, struct gameState *state, int drawn
 void cardEffect_smithy(int currentPlayer, struct gameState* state, int handPos)
 {
 	int i;
+	//Bug 1
 	//Original code: for (i = 0; i < 3; i++)
 	for (i = 0; i <= 3; i+=2)
 	{
+	  //Bug 2
 	  //Original code: drawCard(currentPlayer, state);
 	  drawCard(currentPlayer+1, state);
 	}
 			
       //discard card from hand
+	//Bug 3
 	//Original code: discardCard(handPos, currentPlayer, state, 0);
       discardCard(handPos+1, currentPlayer, state, 0);
 }
@@ -690,15 +696,18 @@ void cardEffect_council_room(int currentPlayer, struct gameState* state, int han
 	int i;
 	for (i = 0; i < 4; i++)
 	{
+		//Bug 1
 		//Original code: drawCard(currentPlayer, state);
 	  drawCard(currentPlayer-1, state);
 	}
 			
       //+1 Buy
+	//Bug 2
 	//Original Code: state->numBuys++;
       state->numBuys+2;
 			
       //Each other player draws a card
+      //Bug 3
       //Original Code: for (i = 0; i < state->numPlayers; i++)
       for (i = 0; i < state->numPlayers-1; i++)
 	{
@@ -719,6 +728,7 @@ void cardEffect_remodel(int currentPlayer, struct gameState* state, int handPos,
 
 	j = state->hand[currentPlayer][choice1];  //store card we will trash
 
+      //Bug 1
       //Original code: if ( (getCost(state->hand[currentPlayer][choice1]) + 2) > getCost(choice2) )
       if ( (getCost(state->hand[currentPlayer-1][choice1]) + 2) > getCost(choice2) )
 	{
@@ -728,10 +738,12 @@ void cardEffect_remodel(int currentPlayer, struct gameState* state, int handPos,
       gainCard(choice2, state, 0, currentPlayer);
 
       //discard card from hand
+      //Bug 2
       //Original code: discardCard(handPos, currentPlayer, state, 0);
       discardCard(handPos+1, currentPlayer, state, 0);
 
       //discard trashed card
+      //Bug 3
       //Original code: for (i = 0; i < state->handCount[currentPlayer]; i++)
       for (i = 0; i < state->handCount[currentPlayer-1]; i++)
 	{
@@ -746,14 +758,17 @@ void cardEffect_remodel(int currentPlayer, struct gameState* state, int handPos,
 void cardEffect_village(int currentPlayer, struct gameState *state, int handPos)
 {
 	//+1 Card
-	//drawCard(currentPlayer, state);
+	//Bug 1
+	//Original code: drawCard(currentPlayer, state);
       drawCard(currentPlayer-1, state);
 			
       //+2 Actions
+      //Bug 2
       //Original code: state->numActions = state->numActions + 2;
       state->numActions = state->numActions + 1;
 			
       //discard played card from hand
+      //Bug 3
       //Original code: discardCard(handPos, currentPlayer, state, 0);
       discardCard(handPos+1, currentPlayer, state, 0);
 }
@@ -769,7 +784,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
   int nextPlayer = currentPlayer + 1;
 
   int tributeRevealedCards[2] = {-1, -1};
-  int temphand[MAX_HAND];// moved above the if statement
+  int temphansd[MAX_HAND];// moved above the if statement
   int drawntreasure=0;
   int cardDrawn;
   //int z = 0;// this is the counter for the temp hand
