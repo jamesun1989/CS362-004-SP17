@@ -758,19 +758,13 @@ void cardEffect_remodel(int currentPlayer, struct gameState* state, int handPos,
 void cardEffect_village(int currentPlayer, struct gameState *state, int handPos)
 {
 	//+1 Card
-	//Bug 1
-	//Original code: drawCard(currentPlayer, state);
-      drawCard(currentPlayer-1, state);
+      drawCard(currentPlayer, state);
 			
       //+2 Actions
-      //Bug 2
-      //Original code: state->numActions = state->numActions + 2;
-      state->numActions = state->numActions + 1;
+      state->numActions = state->numActions + 2;
 			
       //discard played card from hand
-      //Bug 3
-      //Original code: discardCard(handPos, currentPlayer, state, 0);
-      discardCard(handPos+1, currentPlayer, state, 0);
+      discardCard(handPos, currentPlayer, state, 0);
 }
 
 int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState *state, int handPos, int *bonus)
