@@ -1,0 +1,169 @@
+Bug Report
+
+Title: Adventurer Bug 1    
+
+Class: serious error
+
+Date: May 22nd, 2017           
+Reported By: Xiaoli Sun  
+Email:  sunxiao@oregonstate.edu  
+
+
+Product:   Dominion             Version: N/A
+Platform:  Unix                 Version: Flip
+     
+
+Is it reproducible: Yes
+
+Description
+===========
+When a player played an adventurer and get two treasure cards, the total number of cards at hand is wrong.
+
+
+Steps to Produce/Reproduce
+--------------------------
+Set game player as 2
+Initialize the game
+set handcount randomly from 0 to 9 and set the first card at hand is adventurer
+Loop through player's hand cards to count all treasure cards before using adventurer
+Play adventurer card
+Loop through player's hand cards to count all treasure cards after using adventurer card
+Compare new handcount to previous handcount
+
+
+
+Expected Results
+----------------
+HandCount after playing adventurer should be 2 more than before playing cards
+
+
+Actual Results
+--------------
+HandCount after playing adventurer is 3 more than or even less than before playing cards
+
+
+-------------------------------------------------------------------------------------------
+Title: Adventurer Bug 2    
+
+Class: serious error
+
+Date: May 22nd, 2017           
+Reported By: Xiaoli Sun  
+Email:  sunxiao@oregonstate.edu  
+
+
+Product:   Dominion             Version: N/A
+Platform:  Unix                 Version: Flip
+     
+
+Is it reproducible: Yes
+
+Description
+===========
+when a player played only one card (eg: adventurer), but it showed the player played more than one card.
+
+
+Steps to Produce/Reproduce
+--------------------------
+Set game player as 2
+Initialize the game
+set handcount randomly from 0 to 9 and set the first card at hand is adventurer
+Loop through player's hand cards to count all treasure cards before using adventurer card
+Play adventurer card
+Loop through player's hand cards to count all treasure cards after using adventurer card
+Compare playedCardCount to 1
+
+
+
+Expected Results
+----------------
+playedCardCount after playing adventurer should equal to 1
+
+
+Actual Results
+--------------
+playedCardCount after playing adventurer is not equal to 1
+
+
+-------------------------------------------------------------------------------------------
+Title: Adventurer Bug 3    
+
+Class: serious error
+
+Date: May 22nd, 2017           
+Reported By: Xiaoli Sun  
+Email:  sunxiao@oregonstate.edu  
+
+
+Product:   Dominion             Version: N/A
+Platform:  Unix                 Version: Flip
+     
+
+Is it reproducible: Yes
+
+Description
+===========
+The discarded cards number was incorrect
+
+
+Steps to Produce/Reproduce
+--------------------------
+Set game player as 2
+Initialize the game
+set handcount randomly from 0 to 9 and set the first card at hand is adventurer
+Loop through player's hand cards to count all treasure cards before using adventurer
+Play adventurer card
+Loop through player's hand cards to count all treasure cards after using adventurer card
+Check if the discarded card number after playing adventurer card is equal to discarded card number before playing card
+
+
+
+
+Expected Results
+----------------
+discarded card number after playing adventurer card is equal to discarded card number before playing card
+
+
+Actual Results
+--------------
+discarded card number after playing adventurer card is not equal to discarded card number before playing card
+
+
+-------------------------------------------------------------------------------------------
+Title: Smithy Bug 1   
+
+Class: serious error
+
+Date: May 22nd, 2017           
+Reported By: Xiaoli Sun  
+Email:  sunxiao@oregonstate.edu  
+
+
+Product:   Dominion             Version: N/A
+Platform:  Unix                 Version: Flip
+     
+
+Is it reproducible: Yes
+
+Description
+===========
+The function would generate wrong card that was discarded. For example, if a player discarded smithy in this turn, the function would incorrectly show that the player discarded another card like village in this turn.
+
+
+Steps to Produce/Reproduce
+--------------------------
+Set game player as 2
+Initialize the game
+Manually set 5 cards to player's hands. 
+Play smithy card
+If playedCardCount equal to 1, playedCards[0] equal to smithy and handCount[currentplayer] equal to 7, the function pass the test.
+
+
+Expected Results
+----------------
+playedCards[0] should equal to smithy
+
+
+Actual Results
+--------------
+playedCards[0] is not equal to smithy

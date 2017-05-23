@@ -27,7 +27,7 @@ void randomTestingAdventurer(struct gameState *state, int *kingdomcard, int seed
 		afterdrawtreasure = 0;
 		hand_count = rand()% 10;
 		state -> handCount[currentplayer] = hand_count;
-		state -> hand[currentplayer][0] = adventurer;
+		state -> hand[currentplayer][handPos] = adventurer;
 		for(j=1; j<hand_count; j++){
 			card = rand()%27;
 			if(card == copper || card == silver || card == gold){
@@ -49,7 +49,7 @@ void randomTestingAdventurer(struct gameState *state, int *kingdomcard, int seed
 			card = rand()%27;
 			state -> discard[currentplayer][j] = card;
 		}
-		cardEffect_adventurer(currentplayer, state, 0, 0, 0);
+		playAdventurer(state);
 		for(j=0; j<state -> handCount[currentplayer]; j++){
 			if (state -> hand[currentplayer][j] == copper || state -> hand[currentplayer][j] == silver || state -> hand[currentplayer][j] == gold)
 			{
@@ -73,6 +73,12 @@ void randomTestingAdventurer(struct gameState *state, int *kingdomcard, int seed
 			printf("Random Testing for adventurer: Success. Return correct number of card played count.\n");
 		}else{
 			printf("Random Testing for adventurer: Failed. Return wrong number of card played count.\n");
+		}
+
+		if(state -> discardCount[currentplayer]== discard_count){
+			printf("Random Testing for adventurer: Success. Return correct number of discarded cards count.\n");
+		}else{
+			printf("Random Testing for adventurer: Failed. Return wrong number of discarded cards count.\n");
 		}
 		free(state);
 	}

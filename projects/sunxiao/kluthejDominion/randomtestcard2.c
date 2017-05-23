@@ -45,7 +45,7 @@ void randomTestingvillage(struct gameState *state, int *kingdomcard, int seed){
 			card = rand() % 27;
 			state->discard[currentplayer][j] = card;
 		}
-		cardEffect_village(currentplayer, state, handPos);
+		cardEffect(village, 0, 0, 0, state, handPos, 0);
 
 
 		if (state -> numActions == 2)
